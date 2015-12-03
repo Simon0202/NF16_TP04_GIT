@@ -25,6 +25,9 @@ Noeud* insererNoeud_rec(int n, Noeud *root);
 int verifier(Noeud* root);
 Noeud* recherche_rec(int n, Noeud* root);
 Noeud* recherche(int n, Noeud* root);
+int hauteur(Noeud* root);
+int max(int a, int b);
+int somme(Noeud* root);
 
 
 

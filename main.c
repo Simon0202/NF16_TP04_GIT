@@ -24,13 +24,6 @@ int main(int argc, const char * argv[])
     
     
     printf("La racine de l'arbre est : %d\n",root->cle);
-//    
-//    if(suivant)
-//        printf("Le fils droit de la racine est : %d\n",root->droit->cle);
-//    else
-//        printf("Erreur dans l'ajout de la clé 60\n");
-//    
-//    printf("Le fils gauche de la racine est : %d\n",root->gauche->cle);
     
     if(verifier(root)==1)
         printf("L'arbre de racine %d est un ABR\n", root->cle);
@@ -44,6 +37,8 @@ int main(int argc, const char * argv[])
     else
         printf("Noeud introuvable\n");
     
+    printf("La hauteur de l'arbre de racine %d est %d\n", root->cle, hauteur(root));
+    printf("La somme des cles des noeuds de l'arbre de racine %d est %d\n", root->cle, somme(root));
     
     
     return 0;

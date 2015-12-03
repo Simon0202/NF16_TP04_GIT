@@ -10,6 +10,16 @@
 #include <stdlib.h>
 #include "tp4.h"
 
+//fonctions complémentaires
+int max(int a, int b)
+{
+    if (a<b)
+        return b;
+    
+    return a;
+}
+
+//fonctions principales
 Noeud* insererNoeud(int n, Noeud *root)
 {
     Noeud* newNoeud = malloc(sizeof(Noeud));
@@ -147,4 +157,44 @@ Noeud* recherche(int n, Noeud* root)
     }
     
     return NULL;
+}
+
+int hauteur(Noeud* root)
+{
+    Noeud* ptrNoeud = root;
+    
+    if (ptrNoeud->gauche && !ptrNoeud->droit)
+    {
+        return 1+hauteur(ptrNoeud->gauche);
+    }
+    else if(ptrNoeud->droit && !ptrNoeud->gauche)
+    {
+        return 1+hauteur(ptrNoeud->droit);
+    }
+    else if (ptrNoeud->droit && ptrNoeud->gauche)
+    {
+        return 1+max(hauteur(ptrNoeud->gauche), hauteur(ptrNoeud->droit));
+    }
+    else
+        return 0;
+}
+
+int somme(Noeud* root)
+{
+    Noeud* ptrNoeud = root;
+    
+    if (ptrNoeud->gauche && !ptrNoeud->droit)
+    {
+        return ptrNoeud->cle+somme(ptrNoeud->gauche);
+    }
+    else if(ptrNoeud->droit && !ptrNoeud->gauche)
+    {
+        return ptrNoeud->cle+somme(ptrNoeud->droit);
+    }
+    else if (ptrNoeud->droit && ptrNoeud->gauche)
+    {
+        return ptrNoeud->cle+somme(ptrNoeud->gauche)+somme(ptrNoeud->droit);
+    }
+    else
+        return ptrNoeud->cle;
 }
