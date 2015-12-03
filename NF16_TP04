@@ -1,0 +1,10 @@
+//Structure noeud d'un ABR
+struct noeud
+{
+	int clef;
+	struct noeud *gauche;
+	struct noeud *droit;
+};
+typedef struc noeud *noeud
+
+//Fonction iterative noeud * insererNoeud (int n, Noeud *root)
