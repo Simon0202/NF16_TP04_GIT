@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tp4.h"
-#define test 20
 
 Noeud* insererNoeud(int n, Noeud *root)
 {
