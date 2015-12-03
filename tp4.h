@@ -23,6 +23,7 @@ typedef struct Noeud
 Noeud* insererNoeud(int n, Noeud *root);
 Noeud* insererNoeud_rec(int n, Noeud *root);
 int verifier(Noeud* root);
+Noeud* recherche_rec(int n, Noeud* root);
 Noeud* recherche(int n, Noeud* root);
 
 

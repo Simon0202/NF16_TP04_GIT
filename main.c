@@ -37,7 +37,13 @@ int main(int argc, const char * argv[])
     else
         printf("L'arbre de racine %d n'est pas un ABR\n", root->cle);
     
-    recherche(25, root);
+    Noeud* trouve = recherche(25, root);
+    
+    if(trouve)
+        printf("Le noeud de clé %d a été trouvé\n", trouve->cle);
+    else
+        printf("Noeud introuvable\n");
+    
     
     
     return 0;

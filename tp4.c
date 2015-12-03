@@ -104,7 +104,7 @@ int verifier(Noeud* root)
     return 1;
 }
 
-Noeud* recherche(int n, Noeud* root)
+Noeud* recherche_rec(int n, Noeud* root)
 {
     if(root->cle<n)
     {
@@ -123,6 +123,27 @@ Noeud* recherche(int n, Noeud* root)
     else
     {
         return root;
+    }
+    
+    return NULL;
+}
+
+Noeud* recherche(int n, Noeud* root)
+{
+    Noeud* ptrNoeud = root;
+    
+    while (ptrNoeud)
+    {
+        if (ptrNoeud->cle==n)
+        {
+            return ptrNoeud;
+        }
+        else if (ptrNoeud->cle<n)
+        {
+            ptrNoeud = ptrNoeud->droit;
+        }
+        else
+            ptrNoeud = ptrNoeud->gauche;
     }
     
     return NULL;
