@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tp4.h"
+#define test 20
 
 Noeud* insererNoeud(int n, Noeud *root)
 {
@@ -35,16 +36,16 @@ Noeud* insererNoeud(int n, Noeud *root)
                 ptrNoeud->droit = newNoeud;
                 return newNoeud;
             }
-        else if(ptrNoeud->cle>n)
-            if(ptrNoeud->gauche)
-                ptrNoeud = ptrNoeud->gauche;
-            else
-            {
-                ptrNoeud->gauche = newNoeud;
-                return newNoeud;
-            }
-        else
-            return NULL;
+            else if(ptrNoeud->cle>n)
+                if(ptrNoeud->gauche)
+                    ptrNoeud = ptrNoeud->gauche;
+                else
+                {
+                    ptrNoeud->gauche = newNoeud;
+                    return newNoeud;
+                }
+                else
+                    return NULL;
     }
 }
 
