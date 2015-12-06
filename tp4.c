@@ -11,6 +11,8 @@
 #include "tp4.h"
 
 //fonctions complémentaires
+
+//Fonction de calcul du max de deux entiers pour la fonction de calcul de la hauteur de l'ABR
 int max(int a, int b)
 {
     if (a<b)
@@ -102,112 +104,107 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
         root->droit = newNoeud;
     }
 
-    return newNoeud;
+    return newNoeud;//si on atteint ce point le noeud a été ajouté et on le renvoie
     
 }
 
+//Fonction qui renvoie 1 si l'arbre est un ABR, 0 sinon
 int verifier(Noeud* root)
 {
-    if(root->gauche)
+    if(root->gauche)//si il y a un fils gauche on l'analyse
     {
-        if(root->gauche->cle<=root->cle)
+        if(root->gauche->cle<=root->cle)//si la clé du fils gauche est inférieure ou égale à la clé du père on continue à partir du fils gauche
             verifier(root->gauche);
         else
-            return 0;
+            return 0;//sinon ce n'est pas un ABR
     }
     
-    if(root->droit)
+    if(root->droit)//si il y a un sous arbre droit on verifie que c'est un ABR
     {
-        if(root->droit->cle>=root->cle)
+        if(root->droit->cle>=root->cle)//si la clé du fils droit est supérieure ou égale à la clé du père on continue à partir du fils droit
             verifier(root->droit);
         else
-            return 0;
+            return 0;//sinon ce n'est pas un ABR
     }
     
-    return 1;
+    return 1;//si on atteint ce point, l'arbre est un ABR
 }
 
+//Fonction récursive de recherche d'un noeud dans l'ABR
 Noeud* recherche_rec(int n, Noeud* root)
 {
-    if(root->cle<n)
+    if(root->cle<n && root->droit)//si la clé du noeud est inférieure à n et qu'il y a un fils droit on le compare au fils droit
     {
-        if(root->droit)
-            recherche(n,root->droit);
-        else
-            return NULL;
+        return recherche_rec(n,root->droit);
     }
-    else if(root->cle>n)
+    else if(root->cle>n && root->gauche)//si la clé du noeud est supérieure à n et qu'il y a un fils gauche on le compare au fils gauche
     {
-        if(root->gauche)
-            recherche(n,root->gauche);
-        else
-            return NULL;
+        return recherche_rec(n,root->gauche);
     }
-    else
+    else if(root->cle==n)//si la clé du noeud est égale à n on a trouvé le noeud et on le renvoie
     {
         return root;
     }
     
-    return NULL;
+    return NULL;//si on atteint ce point c'est qu'on a pas trouvé le noeud donc on renvoie NULL
 }
 
+//Fonction intérative de recherche d'un noeud dans l'ABR
 Noeud* recherche(int n, Noeud* root)
 {
-    Noeud* ptrNoeud = root;
+    Noeud* ptrNoeud = root; //initialisation d'un pointeur de noeud
     
-    while (ptrNoeud)
+    while (ptrNoeud)//on continue tant que le noeud n'est pas NULL
     {
-        if (ptrNoeud->cle==n)
+        if (ptrNoeud->cle==n)//si la clé du noeud est égale à n on a trouvé le noeud et on le renvoie
         {
             return ptrNoeud;
         }
-        else if (ptrNoeud->cle<n)
+        else if (ptrNoeud->cle<n)//si la clé du noeud est inférieure à n et qu'il y a un fils droit on le compare au fils droit
         {
             ptrNoeud = ptrNoeud->droit;
         }
-        else
+        else//si la clé du noeud est supérieure à n et qu'il y a un fils gauche on le compare au fils gauche
             ptrNoeud = ptrNoeud->gauche;
     }
     
-    return NULL;
+    return NULL;//si on a pas trouvé le noeud on renvoie NULL
 }
 
+//Fonction de calcul de la hauteur de l'ABR
 int hauteur(Noeud* root)
 {
-    Noeud* ptrNoeud = root;
-    
-    if (ptrNoeud->gauche && !ptrNoeud->droit)
+    if (root->gauche && !root->droit)//s'il n'y a que un sous arbre gauche on retourne 1 + la hauteur de celui-ci
     {
-        return 1+hauteur(ptrNoeud->gauche);
+        return 1+hauteur(root->gauche);
     }
-    else if(ptrNoeud->droit && !ptrNoeud->gauche)
+    else if(root->droit && !root->gauche)//s'il n'y a que un sous arbre droit on retourne 1 + la hauteur de celui-ci
     {
-        return 1+hauteur(ptrNoeud->droit);
+        return 1+hauteur(root->droit);
     }
-    else if (ptrNoeud->droit && ptrNoeud->gauche)
+    else if (root->droit && root->gauche)//s'il y a un sous arbre droit et un sous arbre gauche on retourne 1 + le max de la hauteur de ceux-ci
     {
-        return 1+max(hauteur(ptrNoeud->gauche), hauteur(ptrNoeud->droit));
+        return 1+max(hauteur(root->gauche), hauteur(root->droit));
     }
-    else
+    else//s'il n'y a pas de sous arbres gauche ou droit on renvoie 0
         return 0;
 }
 
+//Fonction de calcul de la somme des clés des noeuds de l'ABR
 int somme(Noeud* root)
 {
-    Noeud* ptrNoeud = root;
-    
-    if (ptrNoeud->gauche && !ptrNoeud->droit)
+    if (root->gauche && !root->droit)//s'il n'y a que un sous arbre gauche on retourne la valeur de la clé du noeud + la somme des clés des noeuds du sous arbre gauche
     {
-        return ptrNoeud->cle+somme(ptrNoeud->gauche);
+        return root->cle+somme(root->gauche);
     }
-    else if(ptrNoeud->droit && !ptrNoeud->gauche)
+    else if(root->droit && !root->gauche)//s'il n'y a que un sous arbre droit on retourne la valeur de la clé du noeud + la somme des clés des noeuds du sous arbre droit
     {
-        return ptrNoeud->cle+somme(ptrNoeud->droit);
+        return root->cle+somme(root->droit);
     }
-    else if (ptrNoeud->droit && ptrNoeud->gauche)
+    else if (root->droit && root->gauche)//s'il y a  un sous arbre droit et gauche on retourne la valeur de la clé du noeud + la somme des clés des noeuds du sous arbre droit + la somme des clés des noeuds du sous arbre gauche
     {
-        return ptrNoeud->cle+somme(ptrNoeud->gauche)+somme(ptrNoeud->droit);
+        return root->cle+somme(root->gauche)+somme(root->droit);
     }
-    else
-        return ptrNoeud->cle;
+    else//s'il n'y a pas de sous arbres gauche ou droit on renvoie la valeur de la clé du noeud
+        return root->cle;
 }

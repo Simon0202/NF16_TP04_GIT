@@ -24,13 +24,14 @@ int main(int argc, const char * argv[])
     
     
     printf("La racine de l'arbre est : %d\n",root->cle);
+    printf("La le fils droit de la racine de l'arbre est : %d\n",root->droit->cle);
     
     if(verifier(root)==1)
         printf("L'arbre de racine %d est un ABR\n", root->cle);
     else
         printf("L'arbre de racine %d n'est pas un ABR\n", root->cle);
     
-    Noeud* trouve = recherche(25, root);
+    Noeud* trouve = recherche_rec(60, root);
     
     if(trouve)
         printf("Le noeud de clé %d a été trouvé\n", trouve->cle);
