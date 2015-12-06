@@ -64,24 +64,19 @@ Noeud* insererNoeud(int n, Noeud *root)
 Noeud* insererNoeud_rec(int n, Noeud *root)
 {
     
-    if(root->cle<n)
+    if(!root)//s'il n'y a pas de noeuds dans l'arbre on l'ajoute à la racine
     {
-        if(root->droit)
-            return insererNoeud_rec(n, root->droit);
-        else
-        {
-            Noeud* newNoeud = malloc(sizeof(Noeud));
-            newNoeud->cle=n;
-            newNoeud->gauche=NULL;
-            newNoeud->droit=NULL;
-            root->droit = newNoeud;
-            return newNoeud;
-        }
+        Noeud* newNoeud = malloc(sizeof(Noeud));
+        newNoeud->cle=n;
+        newNoeud->gauche=NULL;
+        newNoeud->droit=NULL;
+        root = newNoeud;
+        return root;
     }
     else if(root->cle>n)
     {
         if(root->gauche)
-            return insererNoeud_rec(n, root->gauche);
+            return insererNoeud_rec(n, root->gauche);//on insère dans le sous arbre gauche
         else
         {
             Noeud* newNoeud = malloc(sizeof(Noeud));
@@ -92,7 +87,21 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
             return newNoeud;
         }
     }
-    else
+    else if(root->cle<n)
+    {
+        if(root->droit)
+            return insererNoeud_rec(n, root->droit);//on insere dans le sous arbre droit
+        else
+        {
+            Noeud* newNoeud = malloc(sizeof(Noeud));
+            newNoeud->cle=n;
+            newNoeud->gauche=NULL;
+            newNoeud->droit=NULL;
+            root->droit = newNoeud;
+            return newNoeud;
+        }
+    }
+    else// si le noeud existe déjà on ne l'insere pas
         return NULL;
 }
 

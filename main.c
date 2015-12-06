@@ -12,7 +12,7 @@
 
 int main(int argc, const char * argv[])
 {
-    Noeud* root = insererNoeud(25,NULL);
+    Noeud* root = insererNoeud_rec(25,NULL);
     Noeud* suivant = insererNoeud_rec(60,root);
     Noeud* suivant2 = insererNoeud_rec(10,root);
     Noeud* suivant3 = insererNoeud_rec(5,root);
