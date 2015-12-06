@@ -20,22 +20,24 @@ int max(int a, int b)
 }
 
 //fonctions principales
+
+//Fonction itérative d'insertion d'un noeud dans l'ABR
 Noeud* insererNoeud(int n, Noeud *root)
 {
-    Noeud* newNoeud = malloc(sizeof(Noeud));
+    Noeud* newNoeud = malloc(sizeof(Noeud)); //on initialise le noeud
     Noeud* ptrNoeud = root;
     
     newNoeud->cle=n;
     newNoeud->gauche=NULL;
     newNoeud->droit=NULL;
     
-    if(!root)
+    if(!root)//s'il n'y a pas de noeud dans l'ABR, on ajoute le noeud à la racine
     {
         root=newNoeud;
         return root;
     }
     
-    while (1)
+    while (1)//on continue tant qu'on a pas ajouté le noeud
     {
         if(ptrNoeud->cle<n)
             if(ptrNoeud->droit)
@@ -58,6 +60,7 @@ Noeud* insererNoeud(int n, Noeud *root)
     }
 }
 
+//Fonction récursive d'insertion d'un noeud dans l'ABR
 Noeud* insererNoeud_rec(int n, Noeud *root)
 {
     
