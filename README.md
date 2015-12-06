@@ -16,3 +16,4 @@ Simon :
      afficherStructure
      supprimer
      detruire
+     menu
