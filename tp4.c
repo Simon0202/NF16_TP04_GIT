@@ -77,32 +77,33 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
     {
         if(root->gauche)
             return insererNoeud_rec(n, root->gauche);//on insère dans le sous arbre gauche
-        else
-        {
-            Noeud* newNoeud = malloc(sizeof(Noeud));
-            newNoeud->cle=n;
-            newNoeud->gauche=NULL;
-            newNoeud->droit=NULL;
-            root->gauche = newNoeud;
-            return newNoeud;
-        }
     }
     else if(root->cle<n)
     {
         if(root->droit)
             return insererNoeud_rec(n, root->droit);//on insere dans le sous arbre droit
-        else
-        {
-            Noeud* newNoeud = malloc(sizeof(Noeud));
-            newNoeud->cle=n;
-            newNoeud->gauche=NULL;
-            newNoeud->droit=NULL;
-            root->droit = newNoeud;
-            return newNoeud;
-        }
     }
     else// si le noeud existe déjà on ne l'insere pas
         return NULL;
+    
+    //si on arrive ici c'est que l'on doit insérer le noeud
+    Noeud* newNoeud = malloc(sizeof(Noeud)); //on initialise le noeud
+    newNoeud->cle=n;
+    newNoeud->gauche=NULL;
+    newNoeud->droit=NULL;
+    
+    
+    if(root->cle>n && !root->gauche)//insertion à gauche
+    {
+        root->gauche = newNoeud;
+    }
+    else if(root->cle<n && !root->droit)//insertion à droite
+    {
+        root->droit = newNoeud;
+    }
+
+    return newNoeud;
+    
 }
 
 int verifier(Noeud* root)
