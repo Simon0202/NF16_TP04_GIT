@@ -29,6 +29,7 @@ int hauteur(Noeud* root);
 int max(int a, int b);
 int somme(Noeud* root);
 void afficherDecroissant(Noeud *root);
+void afficherStructure(Noeud *root);
 
 
 

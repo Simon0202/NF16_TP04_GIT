@@ -236,3 +236,29 @@ void afficherDecroissant(Noeud *root)
     
     
 }
+
+
+void afficherStructure(Noeud *root)
+{
+    //Condition d'arret de la fonction récursive
+    if (root != NULL)
+    {   //Condition d'affichage d'un fils gauche
+        if (root->gauche!=NULL)
+            printf("{ %d ,",root->gauche->cle);
+        else
+            printf("{ _ ,");
+        
+        //Affichage de la racine
+            printf(" %d ,",root->cle);
+        
+        //Condition d'affichage d'un fils droit
+        if (root->droit!=NULL)
+            printf(" %d }\n\n",root->droit->cle);
+        else
+            printf(" _ }\n\n");
+        
+        //Appel récursif croissant
+        afficherStructure(root->gauche);
+        afficherStructure(root->droit);
+    }
+}

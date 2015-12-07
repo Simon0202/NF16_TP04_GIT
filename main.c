@@ -44,5 +44,8 @@ int main(int argc, const char * argv[])
     printf("\n\n**DECROISSANT**\n\n");
     afficherDecroissant(root);
     
+    printf("\n\n**ARB**\n\n");
+    afficherStructure(root);
+    
     return 0;
 }
