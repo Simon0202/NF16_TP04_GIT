@@ -41,6 +41,8 @@ int main(int argc, const char * argv[])
     printf("La hauteur de l'arbre de racine %d est %d\n", root->cle, hauteur(root));
     printf("La somme des cles des noeuds de l'arbre de racine %d est %d\n", root->cle, somme(root));
     
+    printf("\n\n**DECROISSANT**\n\n");
+    afficherDecroissant(root);
     
     return 0;
 }

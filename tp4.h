@@ -28,6 +28,7 @@ Noeud* recherche(int n, Noeud* root);
 int hauteur(Noeud* root);
 int max(int a, int b);
 int somme(Noeud* root);
+void afficherDecroissant(Noeud *root);
 
 
 

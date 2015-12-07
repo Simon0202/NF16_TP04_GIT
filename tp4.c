@@ -13,13 +13,12 @@
 //fonctions complémentaires
 
 //Fonction de calcul du max de deux entiers pour la fonction de calcul de la hauteur de l'ABR
-int max(int a, int b)
+
+int max(int a,int b)
 {
-    if (a<b)
-        return b;
-    
-    return a;
+    return (a>b)? a : b ;
 }
+
 
 //fonctions principales
 
@@ -62,6 +61,8 @@ Noeud* insererNoeud(int n, Noeud *root)
     }
 }
 
+
+
 //Fonction récursive d'insertion d'un noeud dans l'ABR
 Noeud* insererNoeud_rec(int n, Noeud *root)
 {
@@ -103,10 +104,11 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
     {
         root->droit = newNoeud;
     }
-
+    
     return newNoeud;//si on atteint ce point le noeud a été ajouté et on le renvoie
     
 }
+
 
 //Fonction qui renvoie 1 si l'arbre est un ABR, 0 sinon
 int verifier(Noeud* root)
@@ -130,6 +132,7 @@ int verifier(Noeud* root)
     return 1;//si on atteint ce point, l'arbre est un ABR
 }
 
+
 //Fonction récursive de recherche d'un noeud dans l'ABR
 Noeud* recherche_rec(int n, Noeud* root)
 {
@@ -148,6 +151,8 @@ Noeud* recherche_rec(int n, Noeud* root)
     
     return NULL;//si on atteint ce point c'est qu'on a pas trouvé le noeud donc on renvoie NULL
 }
+
+
 
 //Fonction intérative de recherche d'un noeud dans l'ABR
 Noeud* recherche(int n, Noeud* root)
@@ -171,6 +176,7 @@ Noeud* recherche(int n, Noeud* root)
     return NULL;//si on a pas trouvé le noeud on renvoie NULL
 }
 
+
 //Fonction de calcul de la hauteur de l'ABR
 int hauteur(Noeud* root)
 {
@@ -190,6 +196,7 @@ int hauteur(Noeud* root)
         return 0;
 }
 
+
 //Fonction de calcul de la somme des clés des noeuds de l'ABR
 int somme(Noeud* root)
 {
@@ -207,4 +214,25 @@ int somme(Noeud* root)
     }
     else//s'il n'y a pas de sous arbres gauche ou droit on renvoie la valeur de la clé du noeud
         return root->cle;
+}
+
+
+
+//Fontion d'affichage des valeurs de l'ABR par ordre décroissant
+void afficherDecroissant(Noeud *root)
+{
+    //Test s'il existe un sous ABR droit
+    if (root->droit != NULL)
+        //On rappelle la fonction sous ce sous ABR
+        afficherDecroissant(root->droit);
+    
+    //Il n'y a plus de sous ABR droit, il faut donc afficher la cle
+    printf("%d \t", root->cle);
+    
+    //Test s'il existe un ABR gauche à la cle qui vient d'être affichée
+    if (root->gauche != NULL)
+        //Si tel est le cas on appelle la fonction sur ce sous ABR gauche
+        afficherDecroissant(root->gauche);
+    
+    
 }
