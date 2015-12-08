@@ -10,9 +10,14 @@
 #include <stdlib.h>
 #include "tp4.h"
 
-int main(int argc, const char * argv[])
+int main()
 {
-    Noeud* root = insererNoeud_rec(25,NULL);
+
+    
+/*****************************
+****TEST SUR LES FONCTIONS****
+******************************
+
     Noeud* suivant = insererNoeud_rec(60,root);
     Noeud* suivant2 = insererNoeud_rec(10,root);
     Noeud* suivant3 = insererNoeud_rec(5,root);
@@ -21,8 +26,8 @@ int main(int argc, const char * argv[])
     Noeud* suivant6 = insererNoeud_rec(65,root);
     Noeud* suivant7 = insererNoeud_rec(15,root);
     Noeud* suivant8 = insererNoeud_rec(45,root);
-    
-    
+
+ 
     printf("La racine de l'arbre est : %d\n",root->cle);
     printf("La le fils droit de la racine de l'arbre est : %d\n",root->droit->cle);
     
@@ -47,5 +52,136 @@ int main(int argc, const char * argv[])
     printf("\n\n**ARB**\n\n");
     afficherStructure(root);
     
+    afficherStructure(minSousAbre(root));
+    
+    //test sur la fonction supprimer
+    //supprimer(65, root);
+    //afficherDecroissant(root);
+    
+    //detruire(root);
+
+****************
+FIN DES TEST****
+***************/
+    
+    
+    
+/***********************************
+****Creation du menu utilisateur****
+***********************************/
+    
+    //D'apres le sujet il semble que nous choisissons la racine
+    Noeud* root = insererNoeud_rec(25,NULL);
+    
+    int choix, arret = 1, valeur;
+    printf("\t\t****BONJOUR****\n\n");
+    while (arret == 1)
+    {
+        printf("VEUILLEZ CHOISIR L ACTION A EFFECTUER :\n\n");
+        printf("\t1] Pour inserer un noeud\n");
+        printf("\t2] Pour inserer un noeud recursivement\n");
+        printf("\t3] Pour verifier que nous avons un abre binaire de recherche\n");
+        printf("\t4] Pour rechercher un noeud\n");
+        printf("\t5] Pour rechercher un noeud recursivement\n");
+        printf("\t6] Pour obtenir la hauteur de l'abre\n");
+        printf("\t7] Pour obtenir la somme des valeurs de noeuds\n");
+        printf("\t8] Pour afficher les noeud de façon décroissant\n");
+        printf("\t9] Pour afficher la structure de l'arbre\n");
+        printf("\t10] Pour supprimer un noeud\n");
+        printf("\t11] Pour detruire l'arbre\n");
+        printf("\t12] Pour quitter\n");
+        printf("\nSAISIR L ACTION \n");
+        //On suppose que l'utilisateur entre un choix ci dessus
+        scanf("%d",&choix);
+        switch (choix)
+        {
+            case 1:
+            {
+                printf("Veuillez entrer la valeur à choisir : \n");
+                scanf("%d",&valeur);
+                insererNoeud(valeur,root);
+            }
+                break;
+            
+            case 2:
+            {
+                printf("Veuillez entrer la valeur à choisir : \n");
+                scanf("%d",&valeur);
+                insererNoeud_rec(valeur,root);
+            }
+                break;
+            
+            case 3:
+            {
+                verifier(root);
+            }
+                break;
+            
+            case 4:
+            {
+                printf("Veuillez entrer la valeur à rechercher : \n");
+                scanf("%d",&valeur);
+                recherche(valeur,root);
+            }
+                break;
+            
+            case 5:
+            {
+                printf("Veuillez entrer la valeur à rechercher : \n");
+                scanf("%d",&valeur);
+                recherche(valeur,root);
+            }
+                break;
+            
+            case 6:
+            {
+                hauteur(root);
+            }
+                break;
+            
+            case 7:
+            {
+                somme(root);            }
+                break;
+            
+            case 8:
+            {
+                afficherDecroissant(root);
+            }
+                break;
+            
+            case 9:
+            {
+                afficherStructure(root);
+            }
+                break;
+            
+            case 10:
+            {
+                printf("Veuillez entrer la valeur à supprimer : \n");
+                scanf("%d",&valeur);
+                supprimer(valeur,root);
+            }
+                break;
+            
+            case 11:
+            {
+                detruire(root);
+                arret = 0;
+            }
+                break;
+                
+            case 12:
+            {
+                arret = 0;
+            }
+                break;
+            
+            default:
+                arret = 0;
+                break;
+        }
+    }
+
     return 0;
 }

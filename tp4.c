@@ -10,17 +10,73 @@
 #include <stdlib.h>
 #include "tp4.h"
 
-//fonctions complémentaires
+/********************************
+****FONCTIONS COMPLEMENTAIRES****
+*********************************/
+
+
+
 
 //Fonction de calcul du max de deux entiers pour la fonction de calcul de la hauteur de l'ABR
-
 int max(int a,int b)
 {
     return (a>b)? a : b ;
 }
 
 
-//fonctions principales
+
+//Retourne le minimum du sous ABR, utile dans la fonction supprimer
+Noeud *minSousAbre(Noeud *noeud)
+{
+    while(noeud->gauche != NULL)
+        noeud = noeud->gauche;
+    
+    return noeud;
+}
+
+
+
+//Retourne le pere d'un noeud, utilse dans la fonction supprimer
+Noeud *pere(Noeud *fils, Noeud *root)
+{
+    Noeud *ptr = root, *ptr2 = root;
+    while (ptr != NULL && ptr != fils)
+    {
+        if (fils->cle < ptr->cle)
+        {
+            ptr2 = ptr;
+            ptr = ptr->gauche;
+        }
+        if (fils->cle > ptr->cle)
+        {
+            ptr2 = ptr;
+            ptr = ptr->droit;
+        }
+    }
+        
+    return ptr2;
+}
+
+
+
+
+/****************************************
+****FIN DES FONCTIONS COMPLEMENTAIRES****
+****************************************/
+
+
+
+
+
+
+
+
+/****************************
+****FONCTIONS PRINCIPALES****
+****************************/
+
+
+
 
 //Fonction itérative d'insertion d'un noeud dans l'ABR
 Noeud* insererNoeud(int n, Noeud *root)
@@ -60,6 +116,7 @@ Noeud* insererNoeud(int n, Noeud *root)
                     return NULL;
     }
 }
+
 
 
 
@@ -110,6 +167,8 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
 }
 
 
+
+
 //Fonction qui renvoie 1 si l'arbre est un ABR, 0 sinon
 int verifier(Noeud* root)
 {
@@ -133,6 +192,8 @@ int verifier(Noeud* root)
 }
 
 
+
+
 //Fonction récursive de recherche d'un noeud dans l'ABR
 Noeud* recherche_rec(int n, Noeud* root)
 {
@@ -151,6 +212,7 @@ Noeud* recherche_rec(int n, Noeud* root)
     
     return NULL;//si on atteint ce point c'est qu'on a pas trouvé le noeud donc on renvoie NULL
 }
+
 
 
 
@@ -177,6 +239,8 @@ Noeud* recherche(int n, Noeud* root)
 }
 
 
+
+
 //Fonction de calcul de la hauteur de l'ABR
 int hauteur(Noeud* root)
 {
@@ -195,6 +259,8 @@ int hauteur(Noeud* root)
     else//s'il n'y a pas de sous arbres gauche ou droit on renvoie 0
         return 0;
 }
+
+
 
 
 //Fonction de calcul de la somme des clés des noeuds de l'ABR
@@ -218,26 +284,34 @@ int somme(Noeud* root)
 
 
 
+
 //Fontion d'affichage des valeurs de l'ABR par ordre décroissant
 void afficherDecroissant(Noeud *root)
 {
-    //Test s'il existe un sous ABR droit
-    if (root->droit != NULL)
-        //On rappelle la fonction sous ce sous ABR
-        afficherDecroissant(root->droit);
+    //est ce que la racine existe ?
+    if (root != NULL)
+    {
+        //Test s'il existe un sous ABR droit
+        if (root->droit != NULL)
+            //On rappelle la fonction sous ce sous ABR
+            afficherDecroissant(root->droit);
     
-    //Il n'y a plus de sous ABR droit, il faut donc afficher la cle
-    printf("%d \t", root->cle);
+        //Il n'y a plus de sous ABR droit, il faut donc afficher la cle
+        printf("%d \t", root->cle);
     
-    //Test s'il existe un ABR gauche à la cle qui vient d'être affichée
-    if (root->gauche != NULL)
-        //Si tel est le cas on appelle la fonction sur ce sous ABR gauche
-        afficherDecroissant(root->gauche);
-    
-    
+        //Test s'il existe un ABR gauche à la cle qui vient d'être affichée
+        if (root->gauche != NULL)
+            //Si tel est le cas on appelle la fonction sur ce sous ABR gauche
+            afficherDecroissant(root->gauche);
+    }
+    else
+        printf("racine NULL");
 }
 
 
+
+
+//Fonction d'affichage de la structure
 void afficherStructure(Noeud *root)
 {
     //Condition d'arret de la fonction récursive
@@ -261,4 +335,187 @@ void afficherStructure(Noeud *root)
         afficherStructure(root->gauche);
         afficherStructure(root->droit);
     }
+}
+
+
+
+
+//Suppression d'un noeud dans un ABR
+void supprimer(int n, Noeud *root)
+{
+    //On récupère le noeud à supprimer à l'aide de la fonction recherche
+    Noeud *fils = recherche(n, root);
+    printf ("\nvaleur du fils %d\n", fils->cle);
+   
+    /*****
+     
+     On peut tester si le noeud à supprimer n'est pas la racine
+     Mais on suppose que l'utilisateur ne le fait pas
+     
+     ****/
+    
+    
+    
+    //On récupère le père de ce noeud pour la gestion du cas à deux fils
+    Noeud *precedent = pere(fils, root);
+    printf ("\nvaleur du pere %d\n", precedent->cle);
+    
+    
+    
+    //Si le noeud est dans l'ABR
+    if (fils != NULL)
+    {
+        //Cas ou le noeud à supprimer n'a aucun fils
+        if (fils->droit == NULL && fils->gauche == NULL)
+            if (fils->cle > precedent->cle)
+            {
+                precedent->droit = NULL;
+                free(fils);
+            }
+            else
+            {
+                precedent->gauche = NULL;
+                free(fils);
+            }
+        
+        
+        //Cas ou il a deux fils, détail de la procédure
+        /*
+            1)On cherche le minimum dans le sous arbre droit ou le maximum dans le sous arbre gauche
+            2)On attache ce min au pere
+            3)On relie min->gauche et min->droit
+            4)On free la mémoire
+        */
+        else if (fils->droit != NULL && fils->gauche != NULL)
+        {
+            
+            //On se prepare à recupere le min du sous ABR droit et son pere
+            Noeud *min, *dad2;
+            
+            //Recuperation du minimum du sous abre droit
+            min = minSousAbre(fils->droit);
+            printf("\nvaleur du min du sous abre %d\n",min->cle);
+            
+            //récupération du nouveau pere du min du sous ABR droit
+            dad2 = pere(min, root);
+            printf("valeur de dad2 : %d\n", dad2->cle);
+            
+            //Est ce que le noeud a supprimer est dans le sous arbre droit ou gauche?
+            //Permet de relier correctement le pere
+            if (fils->cle < precedent->cle)
+            {
+                //Jonction avec le pere
+                precedent->gauche=min;
+                
+                //Jonction avec ses fils
+                min->droit = fils->droit;
+                min->gauche = fils->gauche;
+                
+                //Gestion des cas limites :
+                
+                /*************************
+                ****DEBUT DE LA NOTICE****
+                **************************
+                 
+                 
+                1) verifier que le pere du min du sous ABR droit ne soit pas le fils à supprimer
+                    --> Si tel est le cas cela signifie que le min->droit devra être mis à nul, sinon il pointera sur lui même
+                 exemple avec 60 !
+                2) ensuite, verifier si le min admet un pere, 
+                    --> Si tel est le cas il faudra mettre le pere->d ou g à NULL pour qu'il ne pointe pas sur lui même
+                3) normalement les cas limites sont gérer. ATTENTION, si on choisit de prendre le max du sous ABR gauche, l'algorithme est à changer !!!!
+                 
+                 
+                ************************
+                ****FIN DE LA NOTICE****
+                ***********************/
+              
+                if (dad2 != fils)
+                {
+                   if (dad2->cle > min->cle)
+                       dad2->gauche = NULL;
+                   else if (dad2->cle < min->cle)
+                       dad2->droit = NULL;
+                }
+                else
+                    min->droit = NULL;
+                
+                //Libération de la mémoire
+                free(fils);
+                
+            }
+            else
+            {
+                precedent->droit=min;
+                
+                min->droit = fils->droit;
+                min->gauche = fils->gauche;
+                if (dad2 != fils)
+                {
+                    if (dad2->cle > min->cle)
+                        dad2->gauche = NULL;
+                    else if (dad2->cle < min->cle)
+                        dad2->droit = NULL;
+                }
+                else
+                    min->droit = NULL;
+                
+                free(fils);
+            }
+        }
+        
+        //Le cas restant est celui où il n'y a qu'un fils
+        else
+        {
+            //Si le fils est dans le sous arbre droit et qu'il à un fils droit
+            if (fils->cle > precedent->cle && fils->droit != NULL)
+            {
+                precedent->droit = fils->droit;
+                free(fils);
+            }
+            //Si le fils est dans le sous arbre droit et qu'il à un fils gauche
+            else if (fils->cle > precedent->cle && fils->gauche != NULL)
+            {
+                precedent->droit = fils->gauche;
+                free(fils);
+            }
+            //Si le fils est dans le sous arbre gauche et qu'il à un fils droit
+            else if (fils->cle < precedent->cle && fils->gauche != NULL)
+            {
+                precedent->gauche = fils->gauche;
+                free(fils);
+            }
+            //Si le fils est dans le sous arbre gauche et qu'il à un fils gauche
+            else
+            {
+                precedent->gauche = fils->droit;
+                free(fils);
+            }
+        }
+    }
+    //Affichage du message d'erreur si le noeud à supprimer n'existe pas ou qu'une erreur arrive
+    else
+        printf("Le noeud n'existe pas");
+    
+}
+
+
+//Destruction de l'ABR en iteratif
+void detruire (Noeud *root)
+{
+    Noeud *ptr = root;
+    int cle;
+    while (ptr->droit != NULL)
+    {
+        cle = ptr->droit->cle;
+        supprimer(cle, root);
+    }
+    while (ptr->gauche != NULL)
+    {
+        cle = ptr->gauche->cle;
+        supprimer(cle, root);
+    }
+    free(root);
+    root=NULL;
+    
 }
