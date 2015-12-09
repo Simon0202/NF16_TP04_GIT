@@ -14,6 +14,6 @@ Alex :
 Simon :
      afficherDecroissant		DONE
      afficherStructure			DONE
-     supprimer
-     detruire
-     menu
+     supprimer                  DONE
+     detruire                   DONE
+     menu                       DONE
