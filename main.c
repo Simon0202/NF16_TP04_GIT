@@ -20,8 +20,7 @@ int main(int argc, const char * argv[])
     Noeud* suivant5 = insererNoeud_rec(35,root);
     Noeud* suivant6 = insererNoeud_rec(65,root);
     Noeud* suivant7 = insererNoeud_rec(15,root);
-    Noeud* suivant8 = insererNoeud_rec(45,root);
-    
+    Noeud* suivant8 = insererNoeud_rec(45,root);    
     
     printf("La racine de l'arbre est : %d\n",root->cle);
     printf("La le fils droit de la racine de l'arbre est : %d\n",root->droit->cle);
@@ -44,7 +43,7 @@ int main(int argc, const char * argv[])
     printf("\n\n**DECROISSANT**\n\n");
     afficherDecroissant(root);
     
-    printf("\n\n**ARB**\n\n");
+    printf("\n\n**ABR**\n\n");
     afficherStructure(root);
     
     return 0;

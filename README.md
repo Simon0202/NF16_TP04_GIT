@@ -12,8 +12,8 @@ Alex :
      somme				DONE
 
 Simon :
-     afficherDecroissant
-     afficherStructure
+     afficherDecroissant		DONE
+     afficherStructure			DONE
      supprimer
      detruire
      menu
