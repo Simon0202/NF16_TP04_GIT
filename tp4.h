@@ -30,6 +30,10 @@ int max(int a, int b);
 int somme(Noeud* root);
 void afficherDecroissant(Noeud *root);
 void afficherStructure(Noeud *root);
+void supprimer(int n, Noeud *root);
+Noeud *minSousAbre(Noeud *root);
+Noeud *pere(Noeud *fils, Noeud *root);
+void detruire (Noeud *root);
 
 
 
