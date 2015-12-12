@@ -11,8 +11,8 @@
 #include "tp4.h"
 
 /********************************
-****FONCTIONS COMPLEMENTAIRES****
-*********************************/
+ ****FONCTIONS COMPLEMENTAIRES****
+ *********************************/
 
 
 
@@ -53,7 +53,7 @@ Noeud *pere(Noeud *fils, Noeud *root)
             ptr = ptr->droit;
         }
     }
-        
+    
     return ptr2;
 }
 
@@ -61,8 +61,8 @@ Noeud *pere(Noeud *fils, Noeud *root)
 
 
 /****************************************
-****FIN DES FONCTIONS COMPLEMENTAIRES****
-****************************************/
+ ****FIN DES FONCTIONS COMPLEMENTAIRES****
+ ****************************************/
 
 
 
@@ -72,8 +72,8 @@ Noeud *pere(Noeud *fils, Noeud *root)
 
 
 /****************************
-****FONCTIONS PRINCIPALES****
-****************************/
+ ****FONCTIONS PRINCIPALES****
+ ****************************/
 
 
 
@@ -295,10 +295,10 @@ void afficherDecroissant(Noeud *root)
         if (root->droit != NULL)
             //On rappelle la fonction sous ce sous ABR
             afficherDecroissant(root->droit);
-    
+        
         //Il n'y a plus de sous ABR droit, il faut donc afficher la cle
         printf("%d \t", root->cle);
-    
+        
         //Test s'il existe un ABR gauche à la cle qui vient d'être affichée
         if (root->gauche != NULL)
             //Si tel est le cas on appelle la fonction sur ce sous ABR gauche
@@ -323,7 +323,7 @@ void afficherStructure(Noeud *root)
             printf("{ _ ,");
         
         //Affichage de la racine
-            printf(" %d ,",root->cle);
+        printf(" %d ,",root->cle);
         
         //Condition d'affichage d'un fils droit
         if (root->droit!=NULL)
@@ -347,7 +347,10 @@ void supprimer(int n, Noeud *root)
     //On récupère le noeud à supprimer à l'aide de la fonction recherche
     Noeud *fils = recherche(n, root);
     printf ("\nvaleur du fils %d\n", fils->cle);
-   
+    
+if (fils != root)
+{
+    
     /*****
      
      On peut tester si le noeud à supprimer n'est pas la racine
@@ -382,121 +385,124 @@ void supprimer(int n, Noeud *root)
         
         //Cas ou il a deux fils, détail de la procédure
         /*
-            1)On cherche le minimum dans le sous arbre droit ou le maximum dans le sous arbre gauche
-            2)On attache ce min au pere
-            3)On relie min->gauche et min->droit
-            4)On free la mémoire
-        */
-        else if (fils->droit != NULL && fils->gauche != NULL)
-        {
-            
-            //On se prepare à recupere le min du sous ABR droit et son pere
-            Noeud *min, *dad2;
-            
-            //Recuperation du minimum du sous abre droit
-            min = minSousAbre(fils->droit);
-            printf("\nvaleur du min du sous abre %d\n",min->cle);
-            
-            //récupération du nouveau pere du min du sous ABR droit
-            dad2 = pere(min, root);
-            printf("valeur de dad2 : %d\n", dad2->cle);
-            
-            //Est ce que le noeud a supprimer est dans le sous arbre droit ou gauche?
-            //Permet de relier correctement le pere
-            if (fils->cle < precedent->cle)
+         1)On cherche le minimum dans le sous arbre droit ou le maximum dans le sous arbre gauche
+         2)On attache ce min au pere
+         3)On relie min->gauche et min->droit
+         4)On free la mémoire
+         */
+            else if (fils->droit != NULL && fils->gauche != NULL)
             {
-                //Jonction avec le pere
-                precedent->gauche=min;
                 
-                //Jonction avec ses fils
-                min->droit = fils->droit;
-                min->gauche = fils->gauche;
+                //On se prepare à recupere le min du sous ABR droit et son pere
+                Noeud *min, *dad2;
                 
-                //Gestion des cas limites :
+                //Recuperation du minimum du sous abre droit
+                min = minSousAbre(fils->droit);
+                printf("\nvaleur du min du sous abre %d\n",min->cle);
                 
-                /*************************
-                ****DEBUT DE LA NOTICE****
-                **************************
-                 
-                 
-                1) verifier que le pere du min du sous ABR droit ne soit pas le fils à supprimer
-                    --> Si tel est le cas cela signifie que le min->droit devra être mis à nul, sinon il pointera sur lui même
-                 exemple avec 60 !
-                2) ensuite, verifier si le min admet un pere, 
-                    --> Si tel est le cas il faudra mettre le pere->d ou g à NULL pour qu'il ne pointe pas sur lui même
-                3) normalement les cas limites sont gérer. ATTENTION, si on choisit de prendre le max du sous ABR gauche, l'algorithme est à changer !!!!
-                 
-                 
-                ************************
-                ****FIN DE LA NOTICE****
-                ***********************/
-              
-                if (dad2 != fils)
+                //récupération du nouveau pere du min du sous ABR droit
+                dad2 = pere(min, root);
+                printf("valeur de dad2 : %d\n", dad2->cle);
+                
+                //Est ce que le noeud a supprimer est dans le sous arbre droit ou gauche?
+                //Permet de relier correctement le pere
+                if (fils->cle < precedent->cle)
                 {
-                   if (dad2->cle > min->cle)
-                       dad2->gauche = NULL;
-                   else if (dad2->cle < min->cle)
-                       dad2->droit = NULL;
+                    //Jonction avec le pere
+                    precedent->gauche=min;
+                    
+                    //Jonction avec ses fils
+                    min->droit = fils->droit;
+                    min->gauche = fils->gauche;
+                    
+                    //Gestion des cas limites :
+                    
+                    /*************************
+                     ****DEBUT DE LA NOTICE****
+                     **************************
+                     
+                     
+                     1) verifier que le pere du min du sous ABR droit ne soit pas le fils à supprimer
+                     --> Si tel est le cas cela signifie que le min->droit devra être mis à nul, sinon il pointera sur lui même
+                     exemple avec 60 !
+                     2) ensuite, verifier si le min admet un pere,
+                     --> Si tel est le cas il faudra mettre le pere->d ou g à NULL pour qu'il ne pointe pas sur lui même
+                     3) normalement les cas limites sont gérer. ATTENTION, si on choisit de prendre le max du sous ABR gauche, l'algorithme est à changer !!!!
+                     
+                     
+                     ************************
+                     ****FIN DE LA NOTICE****
+                     ***********************/
+                    
+                    if (dad2 != fils)
+                    {
+                        if (dad2->cle > min->cle)
+                            dad2->gauche = NULL;
+                        else if (dad2->cle < min->cle)
+                            dad2->droit = NULL;
+                    }
+                    else
+                        min->droit = NULL;
+                    
+                    //Libération de la mémoire
+                    free(fils);
+                    
                 }
                 else
-                    min->droit = NULL;
-                
-                //Libération de la mémoire
-                free(fils);
-                
-            }
-            else
-            {
-                precedent->droit=min;
-                
-                min->droit = fils->droit;
-                min->gauche = fils->gauche;
-                if (dad2 != fils)
                 {
-                    if (dad2->cle > min->cle)
-                        dad2->gauche = NULL;
-                    else if (dad2->cle < min->cle)
-                        dad2->droit = NULL;
+                    precedent->droit=min;
+                    
+                    min->droit = fils->droit;
+                    min->gauche = fils->gauche;
+                    if (dad2 != fils)
+                    {
+                        if (dad2->cle > min->cle)
+                            dad2->gauche = NULL;
+                        else if (dad2->cle < min->cle)
+                            dad2->droit = NULL;
+                    }
+                    else
+                        min->droit = NULL;
+                    
+                    free(fils);
                 }
-                else
-                    min->droit = NULL;
-                
-                free(fils);
             }
-        }
         
         //Le cas restant est celui où il n'y a qu'un fils
-        else
-        {
-            //Si le fils est dans le sous arbre droit et qu'il à un fils droit
-            if (fils->cle > precedent->cle && fils->droit != NULL)
-            {
-                precedent->droit = fils->droit;
-                free(fils);
-            }
-            //Si le fils est dans le sous arbre droit et qu'il à un fils gauche
-            else if (fils->cle > precedent->cle && fils->gauche != NULL)
-            {
-                precedent->droit = fils->gauche;
-                free(fils);
-            }
-            //Si le fils est dans le sous arbre gauche et qu'il à un fils droit
-            else if (fils->cle < precedent->cle && fils->gauche != NULL)
-            {
-                precedent->gauche = fils->gauche;
-                free(fils);
-            }
-            //Si le fils est dans le sous arbre gauche et qu'il à un fils gauche
             else
             {
-                precedent->gauche = fils->droit;
-                free(fils);
+                //Si le fils est dans le sous arbre droit et qu'il à un fils droit
+                if (fils->cle > precedent->cle && fils->droit != NULL)
+                {
+                    precedent->droit = fils->droit;
+                    free(fils);
+                }
+                //Si le fils est dans le sous arbre droit et qu'il à un fils gauche
+                else if (fils->cle > precedent->cle && fils->gauche != NULL)
+                {
+                    precedent->droit = fils->gauche;
+                    free(fils);
+                }
+                //Si le fils est dans le sous arbre gauche et qu'il à un fils droit
+                else if (fils->cle < precedent->cle && fils->gauche != NULL)
+                {
+                    precedent->gauche = fils->gauche;
+                    free(fils);
+                }
+                //Si le fils est dans le sous arbre gauche et qu'il à un fils gauche
+                else
+                {
+                    precedent->gauche = fils->droit;
+                    free(fils);
+                }
             }
-        }
     }
     //Affichage du message d'erreur si le noeud à supprimer n'existe pas ou qu'une erreur arrive
     else
         printf("Le noeud n'existe pas");
+}
+    else
+        printf("\n***************************************\nVOUS NE POUVEZ PAS SUPPRIMER LA RACINE!\n***************************************\n\n");
     
 }
 
