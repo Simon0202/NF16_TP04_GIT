@@ -57,7 +57,30 @@ Noeud *pere(Noeud *fils, Noeud *root)
     return ptr2;
 }
 
-
+//Fonction de tri d'un tableau d'entier
+void trierTableau(int *tab, int tailleTab)
+{
+    int changement,i;
+    
+    int tmp;
+    
+    do
+    {
+        changement=0;
+        
+        for (i=0; i<=tailleTab-2; i++)
+        {
+            if (tab[i]>tab[i+1])
+            {
+                tmp=tab[i+1];
+                tab[i+1]=tab[i];
+                tab[i]=tmp;
+                changement=1;
+            }
+        }
+        
+    }while (changement==1);
+}
 
 
 /****************************************
@@ -348,13 +371,11 @@ void supprimer(int n, Noeud *root)
     Noeud *fils = recherche(n, root), *racine;
     
     printf ("\nvaleur du fils %d\n", fils->cle);
-<<<<<<< HEAD
 
-=======
+
     
 if (fils != root)
 {
->>>>>>> 8210ae2106f46be9894846411fa8a454d3d0d88d
     
     /*****
      
@@ -531,3 +552,22 @@ void detruire (Noeud *root)
     root=NULL;
     
 }
+
+//Construction d'un ABR équilibré
+Noeud* construire (int Tab[MAX], int indiceDebut, int indiceFin, Noeud* root)
+{
+    int l = indiceFin-indiceDebut+1;
+    
+    if ((indiceDebut+l/2)!=indiceFin)
+    {
+        insererNoeud_rec(Tab[indiceDebut + l/2], root);
+        construire(Tab, indiceDebut, indiceDebut-1 + l/2, root);
+        construire(Tab, indiceDebut+1 + l/2, indiceFin, root);
+    }
+    
+    insererNoeud_rec(Tab[indiceDebut], root);
+    insererNoeud_rec(Tab[indiceFin], root);
+    
+    return root;
+}
+

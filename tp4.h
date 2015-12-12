@@ -9,6 +9,9 @@
 #ifndef tp4_h
 #define tp4_h
 
+//constantes
+#define MAX 50
+
 //structures
 typedef struct Noeud
 {
@@ -34,7 +37,7 @@ void supprimer(int n, Noeud *root);
 Noeud *minSousAbre(Noeud *root);
 Noeud *pere(Noeud *fils, Noeud *root);
 void detruire (Noeud *root);
-
-
+void trierTableau(int *tab, int tailleTab);
+Noeud* construire (int Tab[MAX], int indiceDebut, int indiceFin, Noeud* root);
 
 #endif /* tp4_h */

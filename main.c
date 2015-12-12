@@ -79,8 +79,11 @@ FIN DES TEST****
     Noeud* root = insererNoeud_rec(25,NULL);
     
     Noeud* trouve = malloc(sizeof(Noeud));
+    Noeud* root2 = malloc(sizeof(Noeud));
     
-    int choix, arret = 1, valeur;
+    int Tab[MAX];
+    
+    int choix, arret = 1, valeur, i;
     printf("\t\t****BONJOUR****\n\n");
     while (arret == 1)
     {
@@ -96,7 +99,8 @@ FIN DES TEST****
         printf("\t9] Pour afficher la structure de l'arbre\n");
         printf("\t10] Pour supprimer un noeud\n");
         printf("\t11] Pour detruire l'arbre\n");
-        printf("\t12] Pour quitter\n");
+        printf("\t12] BONUS : Pour construire un ABR équilibré\n");
+        printf("\t13] Pour quitter\n");
         printf("\nSAISIR L ACTION \n");
         //On suppose que l'utilisateur entre un choix ci dessus
         scanf("%d",&choix);
@@ -184,6 +188,26 @@ FIN DES TEST****
                 break;
                 
             case 12:
+                printf("Veuillez entrer le nombre de valeurs de l'arbre à créer : ");
+                scanf("%d", &valeur);
+                
+                for (i=0; i<valeur; i++)
+                {
+                    printf("Entrer la valeur %d : \n", i);
+                    scanf("%d", &Tab[i]);
+                }
+                
+                trierTableau(Tab, valeur);
+                
+                root2 = insererNoeud_rec(Tab[(valeur/2)], NULL);
+                
+                construire(Tab, 0, valeur-1, root2);
+                
+                afficherStructure(root2);
+                
+                break;
+                
+            case 13:
                 arret = 0;
                 break;
             
