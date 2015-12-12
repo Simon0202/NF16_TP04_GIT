@@ -345,9 +345,11 @@ void supprimer(int n, Noeud *root)
 {
     
     //On récupère le noeud à supprimer à l'aide de la fonction recherche
-    Noeud *fils = recherche(n, root);
+    Noeud *fils = recherche(n, root), *racine;
+    
     printf ("\nvaleur du fils %d\n", fils->cle);
-   
+
+    
     /*****
      
      On peut tester si le noeud à supprimer n'est pas la racine

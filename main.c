@@ -18,15 +18,15 @@ int main()
 ****TEST SUR LES FONCTIONS****
 ******************************
 
-    Noeud* suivant = insererNoeud_rec(60,root);
-    Noeud* suivant2 = insererNoeud_rec(10,root);
-    Noeud* suivant3 = insererNoeud_rec(5,root);
-    Noeud* suivant4 = insererNoeud_rec(20,root);
-    Noeud* suivant5 = insererNoeud_rec(35,root);
-    Noeud* suivant6 = insererNoeud_rec(65,root);
-    Noeud* suivant7 = insererNoeud_rec(15,root);
+ Noeud* suivant = insererNoeud_rec(60,root);
+ Noeud* suivant2 = insererNoeud_rec(10,root);
+ Noeud* suivant3 = insererNoeud_rec(5,root);
+ Noeud* suivant4 = insererNoeud_rec(20,root);
+ Noeud* suivant5 = insererNoeud_rec(35,root);
+ Noeud* suivant6 = insererNoeud_rec(65,root);
+ Noeud* suivant7 = insererNoeud_rec(15,root);
 <<<<<<< HEAD
-    Noeud* suivant8 = insererNoeud_rec(45,root);    
+    Noeud* suivant8 = insererNoeud_rec(45,root);
     
 =======
     Noeud* suivant8 = insererNoeud_rec(45,root);
@@ -77,6 +77,7 @@ FIN DES TEST****
     
     //D'apres le sujet il semble que nous choisissons la racine
     Noeud* root = insererNoeud_rec(25,NULL);
+    
     Noeud* trouve = malloc(sizeof(Noeud));
     
     int choix, arret = 1, valeur;
