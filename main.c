@@ -199,11 +199,11 @@ int main()
                 
                 trierTableau(Tab, valeur);
                 
-                root = insererNoeud_rec(Tab[(valeur/2)], NULL);
+                root2 = insererNoeud_rec(Tab[(valeur/2)], NULL);
                 
-                construire(Tab, 0, valeur-1, root);
+                construire(Tab, 0, valeur-1, root2);
                 
-                afficherStructure(root);
+                afficherStructure(root2);
                 
                 break;
                 
