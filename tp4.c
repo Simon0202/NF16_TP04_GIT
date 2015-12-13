@@ -370,10 +370,6 @@ void supprimer(int n, Noeud *root)
     //On récupère le noeud à supprimer à l'aide de la fonction recherche
     Noeud *fils = recherche(n, root), *racine;
     
-    printf ("\nvaleur du fils %d\n", fils->cle);
-    
-    
-    
     if (fils != root)
     {
         
@@ -388,7 +384,6 @@ void supprimer(int n, Noeud *root)
         
         //On récupère le père de ce noeud pour la gestion du cas à deux fils
         Noeud *precedent = pere(fils, root);
-        printf ("\nvaleur du pere %d\n", precedent->cle);
         
         
         
@@ -424,11 +419,9 @@ void supprimer(int n, Noeud *root)
                     
                     //Recuperation du minimum du sous abre droit
                     min = minSousAbre(fils->droit);
-                    printf("\nvaleur du min du sous abre %d\n",min->cle);
                     
                     //récupération du nouveau pere du min du sous ABR droit
                     dad2 = pere(min, root);
-                    printf("valeur de dad2 : %d\n", dad2->cle);
                     
                     //Est ce que le noeud a supprimer est dans le sous arbre droit ou gauche?
                     //Permet de relier correctement le pere

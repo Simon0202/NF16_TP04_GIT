@@ -25,14 +25,9 @@ int main()
      Noeud* suivant5 = insererNoeud_rec(35,root);
      Noeud* suivant6 = insererNoeud_rec(65,root);
      Noeud* suivant7 = insererNoeud_rec(15,root);
-     <<<<<<< HEAD
-     Noeud* suivant8 = insererNoeud_rec(45,root);
-     
-     =======
      Noeud* suivant8 = insererNoeud_rec(45,root);
      
      
-     >>>>>>> e4f89f9a5bdb42ab84756e6465fb733103e60c83
      printf("La racine de l'arbre est : %d\n",root->cle);
      printf("La le fils droit de la racine de l'arbre est : %d\n",root->droit->cle);
      
@@ -76,7 +71,6 @@ int main()
      ***********************************/
     
     //D'apres le sujet il semble que nous choisissons la racine
-    Noeud* root = insererNoeud_rec(25,NULL);
     
     Noeud* trouve = malloc(sizeof(Noeud));
     Noeud* root2 = malloc(sizeof(Noeud));
@@ -84,9 +78,21 @@ int main()
     int Tab[MAX];
     
     int choix, arret = 1, valeur, i;
-    printf("\t\t****BONJOUR****\n\n");
+    printf("\t\t****BONJOUR****\nBienvenue dans notre programme de gestion d'ABR\nVeuillez entrer la racine de votre arbre : \n");
+    scanf("%d", &valeur);
+    
+    Noeud* root = insererNoeud_rec(valeur,NULL);
+    
+    if(root)
+        printf("Vous venez de créer un arbre de racine %d.\n", root->cle);
+    else
+        printf("Erreur dans l'ajout du noeud.\n");
+
     while (arret == 1)
     {
+        printf("APPUYEZ SUR UNE TOUCHE POUR CONTINUER...");
+        getchar();
+        getchar();
         printf("\n\nVEUILLEZ CHOISIR L ACTION A EFFECTUER :\n\n");
         printf("\t1] Pour inserer un noeud\n");
         printf("\t2] Pour inserer un noeud recursivement\n");
@@ -101,7 +107,7 @@ int main()
         printf("\t11] Pour detruire l'arbre\n");
         printf("\t12] BONUS : Pour construire un ABR équilibré\n");
         printf("\t13] Pour quitter\n");
-        printf("\nSAISIR L ACTION \n");
+        printf("\nCHOIX : ");
         //On suppose que l'utilisateur entre un choix ci dessus
         scanf("%d",&choix);
         switch (choix)
@@ -109,13 +115,23 @@ int main()
             case 1:
                 printf("Veuillez entrer la valeur à choisir : \n");
                 scanf("%d",&valeur);
-                insererNoeud(valeur,root);
+                trouve = insererNoeud(valeur,root);
+                if(trouve)
+                    printf("Vous venez d'ajouter le noeud de clé %d.\n", trouve->cle);
+                else
+                    printf("Erreur dans l'ajout du noeud.\n");
+                
                 break;
                 
             case 2:
                 printf("Veuillez entrer la valeur à choisir : \n");
                 scanf("%d",&valeur);
-                insererNoeud_rec(valeur,root);
+                trouve = insererNoeud_rec(valeur,root);
+                if(trouve)
+                    printf("Vous venez d'ajouter le noeud de clé %d.\n", trouve->cle);
+                else
+                    printf("Erreur dans l'ajout du noeud.\n");
+                
                 break;
                 
             case 3:
@@ -173,17 +189,16 @@ int main()
                 scanf("%d",&valeur);
                 supprimer(valeur,root);
                 
-                //si le noeud à supprimer était la racine, on change la racine
-                //                if(root->cle==valeur)
-                //                    if(root->droit)
-                //                        root=root->droit;
-                ////                    else
-                ////                        root=root->gauche;
                 
                 break;
                 
             case 11:
+                valeur = root->cle;
                 detruire(root);
+                printf("Vous venez de détruire l'ABR de racine %d\n", valeur);
+                printf("APPUYEZ SUR UNE TOUCHE POUR QUITTER...");
+                getchar();
+                getchar();
                 arret = 0;
                 break;
                 
@@ -203,16 +218,20 @@ int main()
                 
                 construire(Tab, 0, valeur-1, root2);
                 
+                printf("\nVoici la structure de votre AVL de racine %d :\n", root2->cle);
                 afficherStructure(root2);
                 
                 break;
                 
             case 13:
+                printf("APPUYEZ SUR UNE TOUCHE POUR QUITTER...");
+                getchar();
+                getchar();
                 arret = 0;
                 break;
                 
             default:
-                arret = 0;
+                printf("Choix inconnu\n");
                 break;
         }
     }
