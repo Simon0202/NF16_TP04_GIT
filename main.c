@@ -12,8 +12,10 @@
 
 int main()
 {
+    int arret = 1;
     
-    
+    while (arret == 1)
+    {
     /*****************************
      ****TEST SUR LES FONCTIONS****
      ******************************
@@ -77,7 +79,7 @@ int main()
     
     int Tab[MAX];
     
-    int choix, arret = 1, valeur, i;
+    int choix, continuer=1,valeur, i;
     printf("\t\t****BONJOUR****\nBienvenue dans notre programme de gestion d'ABR\nVeuillez entrer la racine de votre arbre : \n");
     scanf("%d", &valeur);
     
@@ -88,7 +90,7 @@ int main()
     else
         printf("Erreur dans l'ajout du noeud.\n");
 
-    while (arret == 1)
+    while(continuer)
     {
         printf("APPUYEZ SUR UNE TOUCHE POUR CONTINUER...");
         getchar();
@@ -196,10 +198,11 @@ int main()
                 valeur = root->cle;
                 detruire(root);
                 printf("Vous venez de détruire l'ABR de racine %d\n", valeur);
-                printf("APPUYEZ SUR UNE TOUCHE POUR QUITTER...");
+                printf("Vous allez être redirigé vers la saisie de la racine de l'arbre !\n");
+                printf("APPUYEZ SUR UNE TOUCHE POUR CONTINUER...");
                 getchar();
                 getchar();
-                arret = 0;
+                continuer = 0;
                 break;
                 
             case 12:
@@ -224,9 +227,13 @@ int main()
                 break;
                 
             case 13:
+                valeur = root->cle;
+                detruire(root);
+                printf("Vous venez de détruire l'ABR de racine %d\n", valeur);
                 printf("APPUYEZ SUR UNE TOUCHE POUR QUITTER...");
                 getchar();
                 getchar();
+                continuer = 0;
                 arret = 0;
                 break;
                 
@@ -234,6 +241,7 @@ int main()
                 printf("Choix inconnu\n");
                 break;
         }
+    }
     }
     
     return 0;
