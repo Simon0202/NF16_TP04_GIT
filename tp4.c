@@ -174,7 +174,7 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
     newNoeud->cle=n;
     newNoeud->gauche=NULL;
     newNoeud->droit=NULL;
-    
+
     
     if(root->cle>n && !root->gauche)//insertion à gauche
     {
@@ -198,22 +198,31 @@ int verifier(Noeud* root)
     if(root->gauche)//si il y a un fils gauche on l'analyse
     {
         if(root->gauche->cle<=root->cle)//si la clé du fils gauche est inférieure ou égale à la clé du père on continue à partir du fils gauche
-            verifier(root->gauche);
+        {
+            if(verifier(root->gauche)==0)
+                return 0;
+        }
         else
+        {
             return 0;//sinon ce n'est pas un ABR
+        }
     }
     
     if(root->droit)//si il y a un sous arbre droit on verifie que c'est un ABR
     {
         if(root->droit->cle>=root->cle)//si la clé du fils droit est supérieure ou égale à la clé du père on continue à partir du fils droit
-            verifier(root->droit);
+        {
+            if(verifier(root->droit)==0)
+                return 0;
+        }
         else
+        {
             return 0;//sinon ce n'est pas un ABR
+        }
     }
     
     return 1;//si on atteint ce point, l'arbre est un ABR
 }
-
 
 
 
@@ -368,7 +377,7 @@ void supprimer(int n, Noeud *root)
 {
     
     //On récupère le noeud à supprimer à l'aide de la fonction recherche
-    Noeud *fils = recherche(n, root), *racine;
+    Noeud *fils = recherche(n, root);
     
     if (fils != root)
     {
