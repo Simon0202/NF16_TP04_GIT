@@ -53,7 +53,6 @@ Noeud *pere(Noeud *fils, Noeud *root)
             ptr = ptr->droit;
         }
     }
-    
     return ptr2;
 }
 
@@ -566,9 +565,11 @@ Noeud* construire (int Tab[MAX], int indiceDebut, int indiceFin, Noeud* root)
         construire(Tab, indiceDebut, indiceDebut-1 + l/2, root);
         construire(Tab, indiceDebut+1 + l/2, indiceFin, root);
     }
-    
-    insererNoeud_rec(Tab[indiceDebut], root);
-    insererNoeud_rec(Tab[indiceFin], root);
+    else
+    {
+        insererNoeud_rec(Tab[indiceDebut], root);
+        insererNoeud_rec(Tab[indiceFin], root);
+    }
     
     return root;
 }

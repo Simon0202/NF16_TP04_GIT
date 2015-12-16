@@ -190,8 +190,6 @@ int main()
                 printf("Veuillez entrer la valeur à supprimer : \n");
                 scanf("%d",&valeur);
                 supprimer(valeur,root);
-                
-                
                 break;
                 
             case 11:
@@ -209,13 +207,13 @@ int main()
                 printf("Veuillez entrer le nombre de valeurs de l'arbre à créer : ");
                 scanf("%d", &valeur);
                 
-                for (i=0; i<valeur; i++)
+                for (i=0; i<valeur; i++)//on remplie le tableau des valeurs de l'AVL
                 {
                     printf("Entrer la valeur %d : \n", i);
                     scanf("%d", &Tab[i]);
                 }
                 
-                trierTableau(Tab, valeur);
+                trierTableau(Tab, valeur);//On trie le tableau dans l'ordre croissant
                 
                 root2 = insererNoeud_rec(Tab[(valeur/2)], NULL);
                 
@@ -223,7 +221,6 @@ int main()
                 
                 printf("\nVoici la structure de votre AVL de racine %d :\n", root2->cle);
                 afficherStructure(root2);
-                
                 break;
                 
             case 13:
@@ -243,6 +240,5 @@ int main()
         }
     }
     }
-    
     return 0;
 }
