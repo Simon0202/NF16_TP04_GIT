@@ -184,6 +184,7 @@ int main()
                 
             case 9:
                 afficherStructure(root);
+                printf("\n");
                 break;
                 
             case 10:
