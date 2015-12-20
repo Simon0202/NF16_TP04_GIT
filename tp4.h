@@ -35,6 +35,7 @@ void afficherDecroissant(Noeud *root);
 void afficherStructure(Noeud *root);
 void supprimer(int n, Noeud *root);
 Noeud *minSousAbre(Noeud *root);
+Noeud *maxSousAbre(Noeud *noeud);
 Noeud *pere(Noeud *fils, Noeud *root);
 void detruire (Noeud *root);
 void trierTableau(int *tab, int tailleTab);

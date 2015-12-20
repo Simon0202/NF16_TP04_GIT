@@ -34,6 +34,15 @@ Noeud *minSousAbre(Noeud *noeud)
     return noeud;
 }
 
+//Retourne le maximum du sous ABR, utile dans la fonction vérifier
+Noeud *maxSousAbre(Noeud *noeud)
+{
+    while(noeud->droit != NULL)
+        noeud = noeud->droit;
+    
+    return noeud;
+}
+
 
 
 //Retourne le pere d'un noeud, utilse dans la fonction supprimer
@@ -194,8 +203,13 @@ Noeud* insererNoeud_rec(int n, Noeud *root)
 //Fonction qui renvoie 1 si l'arbre est un ABR, 0 sinon
 int verifier(Noeud* root)
 {
+    
+    
     if(root->gauche)//si il y a un fils gauche on l'analyse
     {
+        if(maxSousAbre(root->gauche)->cle>root->cle)
+            return 0;
+        
         if(root->gauche->cle<=root->cle)//si la clé du fils gauche est inférieure ou égale à la clé du père on continue à partir du fils gauche
         {
             if(verifier(root->gauche)==0)
@@ -209,6 +223,9 @@ int verifier(Noeud* root)
     
     if(root->droit)//si il y a un sous arbre droit on verifie que c'est un ABR
     {
+        if(minSousAbre(root->droit)->cle<root->cle)
+            return 0;
+        
         if(root->droit->cle>=root->cle)//si la clé du fils droit est supérieure ou égale à la clé du père on continue à partir du fils droit
         {
             if(verifier(root->droit)==0)
